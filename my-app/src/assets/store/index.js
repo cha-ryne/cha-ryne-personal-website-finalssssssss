@@ -1,8 +1,14 @@
 // src/store/index.js
 import { createStore } from 'vuex';
 
-// Direct API URL
+// API URL with CORS Proxy
 const API_URL = 'https://charyn.pythonanywhere.com/api';
+const CORS_PROXY = 'https://corsproxy.io/?';
+
+// Function to create proxied URL
+const getProxiedUrl = (url) => {
+  return `${CORS_PROXY}${encodeURIComponent(url)}`;
+};
 
 export default createStore({
   state: {
@@ -59,13 +65,17 @@ export default createStore({
     },
     
     async fetchRatings({ commit }) {
-      console.log('Fetching ratings directly from API');
+      console.log('Fetching ratings via CORS proxy');
       commit('SET_LOADING', true);
       commit('SET_ERROR', '');
       
       try {
-        // Direct API call without CORS proxy
-        const response = await fetch(`${API_URL}/ratings`);
+        // Use CORS proxy to bypass CORS restrictions
+        const apiUrl = `${API_URL}/ratings`;
+        const proxiedUrl = getProxiedUrl(apiUrl);
+        console.log('Fetching from proxied URL:', proxiedUrl);
+        
+        const response = await fetch(proxiedUrl);
         console.log('Ratings response status:', response.status);
         
         if (!response.ok) {
@@ -94,7 +104,6 @@ export default createStore({
       } catch (error) {
         console.error('Error fetching ratings:', error);
         commit('SET_ERROR', 'Unable to load ratings. Please try again later.');
-        // No sample data - just set to empty object
         commit('SET_PROJECT_RATINGS', {});
       } finally {
         commit('SET_LOADING', false);
@@ -122,9 +131,12 @@ export default createStore({
         
         console.log('Rating data to send:', ratingData);
         
-        // Direct API call to submit rating
-        console.log('Submitting rating to API directly');
-        const response = await fetch(`${API_URL}/ratings`, {
+        // Use CORS proxy for submission
+        const apiUrl = `${API_URL}/ratings`;
+        const proxiedUrl = getProxiedUrl(apiUrl);
+        console.log('Submitting to proxied URL:', proxiedUrl);
+        
+        const response = await fetch(proxiedUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -144,7 +156,9 @@ export default createStore({
         console.log('New rating from API:', newRating);
         
         // Add the rating from the API response
-        if (newRating) {
+        if (Array.isArray(newRating) && newRating.length > 0) {
+          commit('ADD_RATING', newRating[0]);
+        } else if (newRating) {
           commit('ADD_RATING', newRating);
         }
         

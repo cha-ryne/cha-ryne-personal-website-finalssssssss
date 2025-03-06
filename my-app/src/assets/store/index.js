@@ -122,21 +122,6 @@ export default createStore({
       } catch (error) {
         console.error('Error fetching ratings:', error);
         commit('SET_ERROR', 'Unable to load ratings. Please try again later.');
-        
-        // Create mock data for better UX
-        const mockRatings = {
-          1: [
-            { id: 1, project_id: 1, user_id: 'user_123', stars: 5, comment: "Great website!", created_at: new Date().toISOString() },
-            { id: 2, project_id: 1, user_id: 'user_456', stars: 4, comment: "Nice design!", created_at: new Date().toISOString() }
-          ],
-          2: [
-            { id: 3, project_id: 2, user_id: 'user_789', stars: 5, comment: "Excellent app design!", created_at: new Date().toISOString() }
-          ],
-          3: [
-            { id: 4, project_id: 3, user_id: 'user_012', stars: 4, comment: "Love the restaurant site!", created_at: new Date().toISOString() }
-          ]
-        };
-        commit('SET_PROJECT_RATINGS', mockRatings);
       } finally {
         commit('SET_LOADING', false);
       }
@@ -163,19 +148,6 @@ export default createStore({
         
         console.log('Sending rating data:', JSON.stringify(ratingData));
         
-        // Always create a mock rating first for immediate feedback
-        const mockRating = {
-          id: Date.now(),
-          project_id: projectId,
-          user_id: state.userId,
-          stars: parseInt(state.selectedRating),
-          comment: state.ratingComment || "",
-          created_at: new Date().toISOString()
-        };
-        
-        // Add to local state immediately for responsive UI
-        commit('ADD_RATING', mockRating);
-        
         // Then try to submit to server
         const url = getApiUrl('/ratings');
         console.log('Posting rating to:', url);
@@ -183,27 +155,39 @@ export default createStore({
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 15000);
         
-        try {
-          const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            },
-            body: JSON.stringify(ratingData),
-            signal: controller.signal
-          });
-          
-          clearTimeout(timeoutId);
-          
-          if (response.ok) {
-            console.log('Rating submitted successfully to server');
-          } else {
-            console.warn('Server error but continuing with local rating', response.status);
-          }
-        } catch (fetchError) {
-          console.warn('Network error but continuing with local rating', fetchError);
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(ratingData),
+          signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Server error: ${response.status} ${errorText}`);
         }
+        
+        let responseData;
+        try {
+          responseData = await response.json();
+        } catch (e) {
+          console.warn('Could not parse response as JSON, using rating data', e);
+          // If can't parse, use our sent data with timestamp
+          responseData = {
+            ...ratingData,
+            id: Date.now(),
+            created_at: new Date().toISOString()
+          };
+        }
+        
+        // Add the new rating to state
+        commit('ADD_RATING', responseData);
+        console.log('Rating submitted successfully:', responseData);
         
         // Reset and close modal
         commit('SET_SELECTED_PROJECT', null);
@@ -213,16 +197,11 @@ export default createStore({
         
         return { success: true };
       } catch (error) {
-        console.error('Error in submitRating action:', error);
-        
-        // Even with an error, we've already added the rating locally, so UI appears successful
-        // Reset and close modal
-        commit('SET_SELECTED_PROJECT', null);
-        commit('SET_SELECTED_RATING', 0);
-        commit('SET_RATING_COMMENT', '');
-        commit('SHOW_RATING_MODAL', false);
-        
-        return { success: true, localOnly: true };
+        console.error('Error submitting rating:', error);
+        return { 
+          success: false, 
+          message: 'Failed to submit rating. Please try again.'
+        };
       } finally {
         commit('SET_LOADING', false);
       }

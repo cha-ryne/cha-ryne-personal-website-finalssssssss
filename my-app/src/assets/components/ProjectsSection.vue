@@ -5,7 +5,7 @@
     
     <div class="projects-grid">
       <div v-for="project in projects" :key="project.id" class="project-card">
-        <div class="project-image" :style="`background-image: url(${project.image})`">
+        <div class="project-image" :style="`background-image: url(${getImagePath(project.image)})`">
           <div class="project-overlay">
             <a :href="project.link" target="_blank" class="project-link">
               <span class="icon link-icon">🔗</span> View Project
@@ -57,11 +57,10 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
-// Fix modal imports to use correct paths
-import RatingModal from './modals/RatingModal.vue';
-import CommentsModal from './modals/CommentsModal.vue';
+import RatingModal from '../components/modals/RatingModal.vue';
+import CommentsModal from '../components/modals/CommentsModal.vue';
 
 // Helper function - simpler version of the original
 function formatDate(dateString) {
@@ -70,29 +69,37 @@ function formatDate(dateString) {
   return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
+function getImagePath(path) {
+  if (path.startsWith('http')) {
+    return path;
+  }
+  // Use public folder path
+  return `/img/${path}`;
+}
+
 const store = useStore();
 
-// Projects data with absolute image paths
+// Projects data
 const projects = ref([
   {
     id: 1,
     title: "Personal Website",
     description: "A responsive personal website.",
-    image: "../images/proj1.png", 
+    image: "proj1.png", 
     link: "/"
   },
   {
     id: 2,
     title: "Ramquest",
     description: "A mobile wireframe of Ramquest app.",
-    image: "../images/proj2.png", 
+    image: "proj2.png", 
     link: "https://www.figma.com/proto/tQESkzv4TdzWyUJZHTJjIK/RAMQUEST-MOBILE-VERSION"
   },
   {
     id: 3,
     title: "Meneshu",
     description: "A responsive restaurant website.",
-    image: "../images/proj3.png", 
+    image: "proj3.png", 
     link: "https://rheaanne.github.io/Meneshu/home/"
   }
 ]);
@@ -130,6 +137,13 @@ function hasComments(projectId) {
   const comments = commentsWithText(projectId);
   return comments && comments.length > 0;
 }
+
+// Initialize ratings on mount
+onMounted(() => {
+  if (!Object.keys(projectRatings.value).length) {
+    store.dispatch('fetchRatings');
+  }
+});
 </script>
 
 <style scoped>
@@ -208,8 +222,6 @@ function hasComments(projectId) {
   border-radius: 30px;
   transform: translateY(20px);
   transition: transform 0.3s;
-  display: flex;
-  align-items: center;
 }
 
 .project-overlay:hover .project-link {
@@ -221,7 +233,7 @@ function hasComments(projectId) {
 }
 
 .link-icon {
-  margin-right: 0.5rem;
+  margin-right: 5px;
 }
 
 .project-info {

@@ -27,9 +27,9 @@
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  margin-top: 80px;
-  margin-bottom: 2rem;
+  margin: 80px auto 2rem auto;
   width: 100%;
+  max-width: 1000px;
 }
 
 .hero-content {
@@ -61,7 +61,7 @@
 .hero-text h2 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
-  background: linear-gradient(to right, #ff69b4);
+  background: linear-gradient(to right, #ff69b4, #8a2be2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -110,6 +110,10 @@
   
   .profile-image {
     margin-bottom: 1.5rem;
+  }
+  
+  .hero {
+    margin: 70px 20px 2rem 20px;
   }
 }
 </style>

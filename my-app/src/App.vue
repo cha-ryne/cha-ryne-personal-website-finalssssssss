@@ -2,7 +2,7 @@
   <div class="app">
     <header-component />
     
-    <main>
+    <main class="content-container">
       <hero-section />
       <education-section />
       <skills-section />
@@ -46,30 +46,37 @@ onMounted(() => {
 @import './assets/css/style.css';
 
 /* Add these styles to fix layout issues */
-.app {
-  width: 100%;
-  max-width: 1920px;
-  margin: 0 auto;
-  padding: 0;
-  overflow-x: hidden;
-}
-
-main {
+body {
   margin: 0;
   padding: 0;
+  background-color: #0a0a0a;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-container {
+  flex: 1;
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .two-column {
   display: flex;
-  flex-wrap: wrap;
-  width: 100%;
+  gap: 2rem;
+  margin: 2rem 0;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #121212;
-  font-family: 'Poppins', sans-serif;
+@media (max-width: 768px) {
+  .two-column {
+    flex-direction: column;
+  }
 }
 </style>

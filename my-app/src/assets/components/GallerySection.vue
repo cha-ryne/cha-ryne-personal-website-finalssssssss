@@ -11,13 +11,13 @@
             class="my-gallery-item"
             @click="openGallery(index)"
           >
-            <img :src="image" :alt="'Gallery image ' + (index + 1)" />
+            <img :src="getImagePath(image)" :alt="'Gallery image ' + (index + 1)" />
           </div>
         </div>
         
         <!-- Custom gallery overlay with unique class -->
         <div v-if="showGallery" class="my-gallery-overlay">
-          <img :src="images[currentIndex]" class="my-gallery-large-img" />
+          <img :src="getImagePath(images[currentIndex])" class="my-gallery-large-img" />
           <div class="my-gallery-close" @click="closeGallery">×</div>
           <div class="my-gallery-prev" @click="prevImage">❮</div>
           <div class="my-gallery-next" @click="nextImage">❯</div>
@@ -30,21 +30,29 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 
-// Gallery image array with absolute paths
+// Gallery image array with paths that work both in development and production
 const images = ref([
-  '../images/gong.jpg',
-  '../images/Sakamoto.jpg',
-  '../images/bp.jpg',
-  '../images/Manga.jpg',
-  '../images/pirates.jpg',
+  'gong.jpg',
+  'Sakamoto.jpg',
+  'bp.jpg',
+  'Manga.jpg',
+  'pirates.jpg',
   'https://preview.redd.it/new-wallpaper-for-my-pc-they-have-no-right-being-this-cool-v0-3l2k9lpytrcc1.jpeg?auto=webp&s=84fbc9925af40466495e023248afa37305b232fd',
-  '../images/Chman.jpg',
-  '../images/fish.jpg'
+  'Chman.jpg',
+  'fish.jpg'
 ]);
 
 // State variables
 const currentIndex = ref(0);
 const showGallery = ref(false);
+
+// Function to get correct image path
+function getImagePath(path) {
+  if (path.startsWith('http')) {
+    return path;
+  }
+  return `/img/${path}`;
+}
 
 // Open the gallery at a specific image index
 function openGallery(index) {
@@ -112,7 +120,7 @@ onBeforeUnmount(() => {
 }
 
 .gallery-container {
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -139,6 +147,7 @@ onBeforeUnmount(() => {
   cursor: pointer;
   border-radius: 10px;
   height: 200px; /* Fixed height */
+  position: relative;
 }
 
 .my-gallery-item img {
@@ -208,6 +217,12 @@ onBeforeUnmount(() => {
 @media (max-width: 768px) {
   .my-gallery-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .my-gallery-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>

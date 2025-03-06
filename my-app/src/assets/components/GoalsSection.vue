@@ -1,6 +1,6 @@
 <template>
   <section class="goals" id="goals">
-    <h2><i class="fas fa-heart"></i> Life Goals</h2>
+    <h2><span class="icon">❤️</span> Life Goals</h2>
     <ul class="goals-list">
       <li>Have successful businesses</li>
       <li>Be a model at least once</li>
@@ -32,7 +32,7 @@
   text-align: center;
 }
 
-.goals h2 i {
+.goals h2 .icon {
   color: #ff69b4;
   margin-right: 0.5rem;
 }

@@ -1,6 +1,6 @@
 <template>
   <section class="gallery" id="gallery">
-    <h2><i class="fas fa-images"></i> Gallery</h2>
+    <h2><span class="icon">🖼️</span> Gallery</h2>
     <div class="gallery-container">
       <div class="my-isolated-gallery-container">
         <!-- Image grid with unique class names -->
@@ -30,16 +30,16 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 
-// Gallery image array
+// Gallery image array - simplified paths to avoid URL constructor issues
 const images = ref([
-  new URL('../assets/images/gong.jpg', import.meta.url).href,
-  new URL('../assets/images/Sakamoto.jpg', import.meta.url).href,
-  new URL('../assets/images/bp.jpg', import.meta.url).href,
-  new URL('../assets/images/Manga.jpg', import.meta.url).href,
-  new URL('../assets/images/pirates.jpg', import.meta.url).href,
+  '../images/gong.jpg',
+  '../images/Sakamoto.jpg',
+  '../images/bp.jpg',
+  '../images/Manga.jpg',
+  '../images/pirates.jpg',
   'https://preview.redd.it/new-wallpaper-for-my-pc-they-have-no-right-being-this-cool-v0-3l2k9lpytrcc1.jpeg?auto=webp&s=84fbc9925af40466495e023248afa37305b232fd',
-  new URL('../assets/images/Chman.jpg', import.meta.url).href,
-  new URL('../assets/images/fish.jpg', import.meta.url).href
+  '../images/Chman.jpg',
+  '../images/fish.jpg'
 ]);
 
 // State variables
@@ -106,7 +106,7 @@ onBeforeUnmount(() => {
   font-size: 2rem;
 }
 
-.gallery h2 i {
+.gallery h2 .icon {
   color: #ff69b4;
   margin-right: 0.5rem;
 }

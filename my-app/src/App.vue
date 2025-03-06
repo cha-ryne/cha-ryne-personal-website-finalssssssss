@@ -20,17 +20,18 @@
 </template>
 
 <script setup>
-
-import HeaderComponent from '@/components/HeaderComponent.vue';
-import HeroSection from '@/components/HeroSection.vue';
-import EducationSection from '@/components/EducationSection.vue';
-import SkillsSection from '@/components/SkillsSection.vue';
-import GallerySection from '@/components/GallerySection.vue';
-import HobbiesSection from '@/components/HobbiesSection.vue';
-import GoalsSection from '@/components/GoalsSection.vue';
-import ProjectsSection from '@/components/ProjectsSection.vue';
-import ResourcesSection from '@/components/ResourcesSection.vue';
-import FooterComponent from '@/components/FooterComponent.vue';
+import { onMounted } from 'vue';
+import { useStore } from 'vuex';
+import HeaderComponent from './assets/components/HeaderComponent.vue';
+import HeroSection from './assets/components/HeroSection.vue';
+import EducationSection from './assets/components/EducationSection.vue';
+import SkillsSection from './assets/components/SkillsSection.vue';
+import GallerySection from './assets/components/GallerySection.vue';
+import HobbiesSection from './assets/components/HobbiesSection.vue';
+import GoalsSection from './assets/components/GoalsSection.vue';
+import ProjectsSection from './assets/components/ProjectsSection.vue';
+import ResourcesSection from './assets/components/ResourcesSection.vue';
+import FooterComponent from './assets/components/FooterComponent.vue';
 
 const store = useStore();
 
@@ -42,5 +43,5 @@ onMounted(() => {
 </script>
 
 <style>
-@import '../assets/css/style.css';
+@import './assets/css/style.css';
 </style>

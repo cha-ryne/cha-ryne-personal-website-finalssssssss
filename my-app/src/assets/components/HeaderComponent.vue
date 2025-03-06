@@ -5,7 +5,7 @@
     </div>
     <nav>
       <ul>
-        <li><router-link to="/">Home</router-link></li>
+        <li><a href="#" @click.prevent="scrollToTop()">Home</a></li>
         <li><a href="#skills" @click.prevent="scrollToSection('skills')">Skills</a></li>
         <li><a href="#hobbies" @click.prevent="scrollToSection('hobbies')">Interests</a></li>
         <li><a href="#resources" @click.prevent="scrollToSection('resources')">Resources</a></li>
@@ -31,6 +31,13 @@ function scrollToSection(sectionId) {
       behavior: 'smooth'
     });
   }
+}
+
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
 }
 
 onMounted(() => {
@@ -83,7 +90,7 @@ nav ul li a {
 }
 
 nav ul li a:hover,
-nav ul li a.router-link-active {
+nav ul li a.active {
   color: #ff69b4;
 }
 

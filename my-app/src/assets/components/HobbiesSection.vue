@@ -1,6 +1,6 @@
 <template>
   <section class="hobbies" id="hobbies">
-    <h2><i class="fas fa-heart"></i> Hobbies & Interests</h2>
+    <h2><span class="icon">❤️</span> Hobbies & Interests</h2>
     <ul class="interest-list">
       <li>Blackpink (Jennie Kim)</li>
       <li>Mangas/Manhwas/Manhuas</li>
@@ -29,7 +29,7 @@
   text-align: center;
 }
 
-.hobbies h2 i {
+.hobbies h2 .icon {
   color: #ff69b4;
   margin-right: 0.5rem;
 }

@@ -67,4 +67,16 @@ footer p {
 footer:hover p {
   color: #ff69b4;
 }
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .footer-links {
+    justify-content: center;
+  }
+}
 </style>

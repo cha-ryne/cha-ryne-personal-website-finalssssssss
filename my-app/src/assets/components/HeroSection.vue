@@ -1,7 +1,7 @@
 <template>
   <section class="hero">
     <div class="hero-content">
-      <img src="../assets/images/sit.jpg" alt="Profile Photo" class="profile-image">
+      <img src="../images/sit.jpg" alt="Profile Photo" class="profile-image">
       <div class="hero-text">
         <h2>Charijoy Cempron</h2>
         <p class="subtitle">IT Student & Web Enthusiast</p>
@@ -9,7 +9,7 @@
         <p>Metro Manila, Philippines</p>
         <div class="social-links">
           <a href="https://www.linkedin.com/in/charijoy-cempron-0b6950281/" target="_blank">
-            <i class="fab fa-linkedin"></i> LinkedIn
+            <span class="icon">📎</span> LinkedIn
           </a>
         </div>
       </div>
@@ -22,7 +22,6 @@
 </script>
 
 <style scoped>
-
 .hero-text {
   color: white;
 }
@@ -35,72 +34,69 @@
   -webkit-text-fill-color: transparent;
 }
 
-  .hero {
-    background-color: var(--dark-gray);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: var(--box-shadow);
-  }
-  
-  .hero-content {
-    display: flex;
-    align-items: center;
-    padding: 3rem 2rem;
-    gap: 2rem;
-    flex-direction: column;
-  }
-  
-  .profile-image {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid var(--primary-pink);
-    box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
-    transition: var(--transition);
-  }
-  
-  .profile-image:hover {
-    transform: scale(1.05);
-    border-color: var(--light-pink);
-  }
-  
-  .hero-text {
-    text-align: center;
-  }
-  
-  .subtitle {
-    color: var(--primary-pink);
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-  }
-  
-  .social-links {
-    margin-top: 1rem;
-  }
-  
-  .social-links a {
-    display: inline-flex;
-    align-items: center;
-    background-color: var(--light-gray);
-    padding: 0.5rem 1rem;
-    border-radius: 30px;
-    transition: var(--transition);
-  }
-  
-  .social-links a i {
-    margin-right: 0.5rem;
-  }
-  
-  .social-links a:hover {
-    background-color: var(--primary-pink);
-    color: var(--black);
-    transform: translateY(-3px);
-  }
-  
+.hero {
+  background-color: var(--dark-gray);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
+}
 
-/* Add the rest of your hero section CSS here */
+.hero-content {
+  display: flex;
+  align-items: center;
+  padding: 3rem 2rem;
+  gap: 2rem;
+  flex-direction: column;
+}
+
+.profile-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--primary-pink);
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+  transition: var(--transition);
+}
+
+.profile-image:hover {
+  transform: scale(1.05);
+  border-color: var(--light-pink);
+}
+
+.hero-text {
+  text-align: center;
+}
+
+.subtitle {
+  color: var(--primary-pink);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.social-links {
+  margin-top: 1rem;
+}
+
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--light-gray);
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  transition: var(--transition);
+}
+
+.social-links a .icon {
+  margin-right: 0.5rem;
+}
+
+.social-links a:hover {
+  background-color: var(--primary-pink);
+  color: var(--black);
+  transform: translateY(-3px);
+}
 
 @media (max-width: 768px) {
   .hero-content {

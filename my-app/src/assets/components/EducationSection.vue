@@ -1,6 +1,6 @@
 <template>
   <section class="education" id="education">
-    <h2><i class="fas fa-graduation-cap"></i> Education</h2>
+    <h2><span class="icon">🎓</span> Education</h2>
     
     <div class="education-cards">
       <div class="edu-card">
@@ -27,6 +27,10 @@
 </script>
 
 <style scoped>
+.education {
+  background-color: #0e0e0e;
+  padding: 4rem 2rem;
+}
 
 .education h2 {
   text-align: center;
@@ -35,52 +39,56 @@
   font-size: 2rem;
 }
 
-.education h2 i {
+.education h2 .icon {
   color: #ff69b4;
   margin-right: 0.5rem;
 }
 
-  .education-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-  }
-  
-  .edu-card {
-    background-color: var(--dark-gray);
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: var(--box-shadow);
-    border-left: 3px solid var(--primary-pink);
-    transition: var(--transition);
-  }
-  
-  .edu-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
-  }
-  
-  .school {
-    font-weight: 600;
-    color: var(--white);
-  }
-  
-  .location {
-    color: var(--white);
-    font-size: 0.9rem;
-    margin-bottom: 0.7rem;
-  }
-  
-  .year {
-    margin-bottom: 0.5rem;
-    color: var(--white);
-  }
-  
-  .achievement, .course {
-    color: var(--primary-pink);
-    font-weight: 500;
-  }
-  
+.education-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-/* Add the rest of your education section CSS */
+.edu-card {
+  background-color: #1a1a1a;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  border-left: 3px solid #ff69b4;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.edu-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+}
+
+.edu-card h3 {
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.school {
+  font-weight: 600;
+  color: white;
+}
+
+.location {
+  color: white;
+  font-size: 0.9rem;
+  margin-bottom: 0.7rem;
+}
+
+.year {
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.achievement, .course {
+  color: #ff69b4;
+  font-weight: 500;
+}
 </style>

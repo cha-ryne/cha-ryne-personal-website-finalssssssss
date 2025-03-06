@@ -1,7 +1,7 @@
 <template>
   <section class="hero">
     <div class="hero-content">
-      <img src="../images/sit.jpg" alt="Profile Photo" class="profile-image">
+      <img src="/images/sit.jpg" alt="Profile Photo" class="profile-image">
       <div class="hero-text">
         <h2>Charijoy Cempron</h2>
         <p class="subtitle">IT Student & Web Enthusiast</p>

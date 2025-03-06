@@ -44,4 +44,32 @@ onMounted(() => {
 
 <style>
 @import './assets/css/style.css';
+
+/* Add these styles to fix layout issues */
+.app {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+main {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.two-column {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #121212;
+  font-family: 'Poppins', sans-serif;
+}
 </style>

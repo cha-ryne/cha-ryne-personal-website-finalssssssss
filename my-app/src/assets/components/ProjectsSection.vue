@@ -1,4 +1,3 @@
-<!-- src/components/ProjectsSection.vue -->
 <template>
   <section class="projects" id="projects">
     <h2><span class="icon">⭐</span> My Projects</h2>
@@ -58,10 +57,11 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
-import RatingModal from '../components/modals/RatingModal.vue';
-import CommentsModal from '../components/modals/CommentsModal.vue';
+// Fix modal imports to use correct paths
+import RatingModal from './modals/RatingModal.vue';
+import CommentsModal from './modals/CommentsModal.vue';
 
 // Helper function - simpler version of the original
 function formatDate(dateString) {
@@ -72,27 +72,27 @@ function formatDate(dateString) {
 
 const store = useStore();
 
-// Projects data
+// Projects data with absolute image paths
 const projects = ref([
   {
     id: 1,
     title: "Personal Website",
     description: "A responsive personal website.",
-    image: "/images/proj1.png", 
+    image: "../images/proj1.png", 
     link: "/"
   },
   {
     id: 2,
     title: "Ramquest",
     description: "A mobile wireframe of Ramquest app.",
-    image: "/images/proj2.png", 
+    image: "../images/proj2.png", 
     link: "https://www.figma.com/proto/tQESkzv4TdzWyUJZHTJjIK/RAMQUEST-MOBILE-VERSION"
   },
   {
     id: 3,
     title: "Meneshu",
     description: "A responsive restaurant website.",
-    image: "/images/proj3.png", 
+    image: "../images/proj3.png", 
     link: "https://rheaanne.github.io/Meneshu/home/"
   }
 ]);
@@ -208,6 +208,8 @@ function hasComments(projectId) {
   border-radius: 30px;
   transform: translateY(20px);
   transition: transform 0.3s;
+  display: flex;
+  align-items: center;
 }
 
 .project-overlay:hover .project-link {
@@ -219,7 +221,7 @@ function hasComments(projectId) {
 }
 
 .link-icon {
-  margin-right: 5px;
+  margin-right: 0.5rem;
 }
 
 .project-info {

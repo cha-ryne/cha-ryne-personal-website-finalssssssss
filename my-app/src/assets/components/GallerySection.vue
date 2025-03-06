@@ -30,7 +30,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 
-// Gallery image array - simplified paths to avoid URL constructor issues
+// Gallery image array with absolute paths
 const images = ref([
   '../images/gong.jpg',
   '../images/Sakamoto.jpg',
@@ -203,5 +203,11 @@ onBeforeUnmount(() => {
 .my-gallery-prev:hover,
 .my-gallery-next:hover {
   color: #ff69b4;
+}
+
+@media (max-width: 768px) {
+  .my-gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 </style>

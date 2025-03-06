@@ -93,7 +93,7 @@ export default createStore({
     },
     
     // Simplified to use mock data
-    async submitRating({ state, commit, dispatch }) {
+    async submitRating({ state, commit }) {
       if (!state.selectedRating) {
         return { success: false, message: 'Please select a rating by clicking on the stars' };
       }

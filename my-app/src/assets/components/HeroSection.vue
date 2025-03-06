@@ -22,23 +22,14 @@
 </script>
 
 <style scoped>
-.hero-text {
-  color: white;
-}
-
-.hero-text h2 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  background: linear-gradient(to right, #ff69b4, #8a2be2);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 .hero {
-  background-color: var(--dark-gray);
+  background-color: #191919;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: var(--box-shadow);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  margin-top: 80px;
+  margin-bottom: 2rem;
+  width: 100%;
 }
 
 .hero-content {
@@ -46,7 +37,6 @@
   align-items: center;
   padding: 3rem 2rem;
   gap: 2rem;
-  flex-direction: column;
 }
 
 .profile-image {
@@ -54,22 +44,30 @@
   height: 200px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid var(--primary-pink);
+  border: 4px solid #ff69b4;
   box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
-  transition: var(--transition);
+  transition: transform 0.3s;
 }
 
 .profile-image:hover {
   transform: scale(1.05);
-  border-color: var(--light-pink);
 }
 
 .hero-text {
-  text-align: center;
+  color: white;
+  text-align: left;
+}
+
+.hero-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(to right, #ff69b4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .subtitle {
-  color: var(--primary-pink);
+  color: #ff69b4;
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
   font-weight: 500;
@@ -82,10 +80,12 @@
 .social-links a {
   display: inline-flex;
   align-items: center;
-  background-color: var(--light-gray);
+  background-color: #2a2a2a;
   padding: 0.5rem 1rem;
   border-radius: 30px;
-  transition: var(--transition);
+  transition: background-color 0.3s, transform 0.3s;
+  color: white;
+  text-decoration: none;
 }
 
 .social-links a .icon {
@@ -93,8 +93,8 @@
 }
 
 .social-links a:hover {
-  background-color: var(--primary-pink);
-  color: var(--black);
+  background-color: #ff69b4;
+  color: white;
   transform: translateY(-3px);
 }
 
@@ -104,9 +104,12 @@
     text-align: center;
   }
   
+  .hero-text {
+    text-align: center;
+  }
+  
   .profile-image {
-    margin-right: 0;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
 }
 </style>

@@ -15,10 +15,15 @@ const isIPadSafari = () => {
 // API base URL with optional CORS proxy
 const API_BASE_URL = 'https://charyn.pythonanywhere.com/api';
 const getApiUrl = (endpoint) => {
-  // Always use CORS proxy for POST requests to avoid CORS issues
+  // Ensure endpoint starts with a slash
   const formattedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
-  // Use CORS proxy for all requests to avoid CORS issues
-  return `https://corsproxy.io/?${encodeURIComponent(API_BASE_URL + formattedEndpoint)}`;
+  
+  const shouldUseCorsProxy = isIPadSafari();
+  const baseUrl = shouldUseCorsProxy ? 
+    `https://corsproxy.io/?${encodeURIComponent(API_BASE_URL)}` : 
+    API_BASE_URL;
+  
+  return `${baseUrl}${formattedEndpoint}`;
 };
 
 export default createStore({

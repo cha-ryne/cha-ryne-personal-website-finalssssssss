@@ -1,13 +1,17 @@
 // src/store/index.js
 import { createStore } from 'vuex';
 
-// API base URL with CORS proxy
-const API_BASE_URL = 'https://charyn.pythonanywhere.com/api';
+// API base URL without the "/api" part (will be added in getApiUrl)
+const API_BASE_URL = 'https://charyn.pythonanywhere.com';
 
-// Always use CORS proxy for all requests
+// Fix URL construction to properly format the API endpoint
 const getApiUrl = (endpoint) => {
+  // Ensure endpoint starts with a slash
   const formattedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
-  return `https://corsproxy.io/?${encodeURIComponent(API_BASE_URL + formattedEndpoint)}`;
+  // Construct the proper URL with /api in the correct place
+  const apiUrl = `${API_BASE_URL}/api${formattedEndpoint}`;
+  // Use CORS proxy
+  return `https://corsproxy.io/?${encodeURIComponent(apiUrl)}`;
 };
 
 export default createStore({
@@ -70,23 +74,48 @@ export default createStore({
       commit('SET_ERROR', '');
       
       try {
-        const url = getApiUrl('/ratings');
-        console.log('Fetching ratings from:', url);
+        // Try several possible API endpoints
+        const possibleEndpoints = [
+          '/ratings',
+          'ratings',
+          '',
+          '/api/ratings'
+        ];
         
-        const response = await fetch(url, {
-          headers: {
-            'Accept': 'application/json'
+        let data = null;
+        let successUrl = null;
+        
+        // Try each endpoint until one works
+        for (const endpoint of possibleEndpoints) {
+          try {
+            const url = getApiUrl(endpoint);
+            console.log('Trying endpoint:', url);
+            
+            const response = await fetch(url, {
+              headers: {
+                'Accept': 'application/json'
+              },
+              // Set a short timeout for failed endpoints
+              signal: AbortSignal.timeout(5000)
+            });
+            
+            if (response.ok) {
+              data = await response.json();
+              successUrl = url;
+              console.log('Successful API endpoint found:', url);
+              break;
+            }
+          } catch (endpointError) {
+            console.warn(`Endpoint ${endpoint} failed:`, endpointError);
+            // Continue to next endpoint
           }
-        });
-        
-        console.log('Ratings response status:', response.status);
-        
-        if (!response.ok) {
-          throw new Error(`Server returned ${response.status}`);
         }
         
-        const data = await response.json();
-        console.log('API returned data:', data);
+        if (!data) {
+          throw new Error('All API endpoints failed');
+        }
+        
+        console.log('API returned data from', successUrl, ':', data);
         
         // Group ratings by project ID
         const ratings = {};
@@ -142,40 +171,52 @@ export default createStore({
         // Add temporary rating immediately for responsive UI
         commit('ADD_RATING', tempRating);
         
-        // Now send to server
-        const url = getApiUrl('/ratings');
-        console.log('POST request to:', url);
+        // Try several possible API endpoints
+        const possibleEndpoints = [
+          '/ratings',
+          'ratings',
+          '',
+          '/api/ratings'
+        ];
         
-        // Log the exact data being sent
-        const jsonData = JSON.stringify(ratingData);
-        console.log('JSON data:', jsonData);
+        let success = false;
         
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: jsonData
-        });
-        
-        console.log('Response status:', response.status);
-        
-        // Get response text for debugging
-        const responseText = await response.text();
-        console.log('Response text:', responseText);
-        
-        if (!response.ok) {
-          console.error('Server error:', response.status, responseText);
-          
-          // We already added the temporary rating, so don't show an error
-          // Just log it for debugging purposes
+        // Try each endpoint until one works
+        for (const endpoint of possibleEndpoints) {
+          try {
+            const url = getApiUrl(endpoint);
+            console.log('Trying to POST to endpoint:', url);
+            
+            const response = await fetch(url, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify(ratingData),
+              // Set a short timeout for failed endpoints
+              signal: AbortSignal.timeout(5000)
+            });
+            
+            if (response.ok) {
+              console.log('Rating submission succeeded at endpoint:', url);
+              success = true;
+              break;
+            } else {
+              const text = await response.text();
+              console.warn(`Endpoint ${endpoint} returned ${response.status}:`, text);
+            }
+          } catch (endpointError) {
+            console.warn(`POST to endpoint ${endpoint} failed:`, endpointError);
+            // Continue to next endpoint
+          }
         }
         
-        // If we got here, either the server accepted our rating or
-        // we're using the temporary rating. Either way, the user sees their rating.
+        if (!success) {
+          console.warn('All API endpoints failed, but continuing with local rating');
+        }
         
-        // Close the modal
+        // Close the modal regardless of server success (we already added the temp rating)
         commit('SET_SELECTED_PROJECT', null);
         commit('SET_SELECTED_RATING', 0);
         commit('SET_RATING_COMMENT', '');

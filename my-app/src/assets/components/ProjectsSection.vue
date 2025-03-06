@@ -60,8 +60,8 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
-import RatingModal from '@/components/modals/RatingModal.vue';
-import CommentsModal from '@/components/modals/CommentsModal.vue';
+import RatingModal from '../components/modals/RatingModal.vue';
+import CommentsModal from '../components/modals/CommentsModal.vue';
 
 // Helper function - simpler version of the original
 function formatDate(dateString) {
@@ -78,21 +78,21 @@ const projects = ref([
     id: 1,
     title: "Personal Website",
     description: "A responsive personal website.",
-    image: "/images/proj1.png", // Simplified path
+    image: "/images/proj1.png", 
     link: "/"
   },
   {
     id: 2,
     title: "Ramquest",
     description: "A mobile wireframe of Ramquest app.",
-    image: "/images/proj2.png", // Simplified path
+    image: "/images/proj2.png", 
     link: "https://www.figma.com/proto/tQESkzv4TdzWyUJZHTJjIK/RAMQUEST-MOBILE-VERSION"
   },
   {
     id: 3,
     title: "Meneshu",
     description: "A responsive restaurant website.",
-    image: "/images/proj3.png", // Simplified path
+    image: "/images/proj3.png", 
     link: "https://rheaanne.github.io/Meneshu/home/"
   }
 ]);

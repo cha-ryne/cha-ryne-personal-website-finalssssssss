@@ -135,21 +135,23 @@ onBeforeUnmount(() => {
   box-sizing: border-box;
 }
 
-/* Grid layout - explicitly scoped */
+/* UPDATED: Flex layout instead of grid */
 .my-gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
-  width: 100%;
+  justify-content: center;
 }
 
-/* Thumbnails */
+/* UPDATED: Fixed width for items */
 .my-gallery-item {
+  width: 280px;
+  height: 200px;
   overflow: hidden;
   cursor: pointer;
   border-radius: 10px;
-  height: 200px; /* Fixed height */
   position: relative;
+  margin-bottom: 1rem;
 }
 
 .my-gallery-item img {
@@ -216,15 +218,22 @@ onBeforeUnmount(() => {
   color: #ff69b4;
 }
 
-@media (max-width: 768px) {
+/* Responsive adjustments */
+@media (max-width: 980px) {
   .my-gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
+    justify-content: space-around;
+  }
+  
+  .my-gallery-item {
+    width: calc(50% - 1rem);
+    max-width: 400px;
   }
 }
 
-@media (max-width: 480px) {
-  .my-gallery-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 580px) {
+  .my-gallery-item {
+    width: 100%;
+    max-width: none;
   }
 }
 </style>

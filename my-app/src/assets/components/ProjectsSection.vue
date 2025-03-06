@@ -73,8 +73,8 @@ function getImagePath(path) {
   if (path.startsWith('http')) {
     return path;
   }
-  // Use public folder path
-  return `/img/${path}`;
+  // Since images are in public/images, keep the path as is
+  return path;
 }
 
 const store = useStore();

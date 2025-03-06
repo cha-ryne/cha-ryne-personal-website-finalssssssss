@@ -1,28 +1,6 @@
 // src/store/index.js
 import { createStore } from 'vuex';
 
-// In-memory mock data instead of API calls
-const mockProjects = [
-  { id: 1, title: "Personal Website" },
-  { id: 2, title: "Ramquest" },
-  { id: 3, title: "Meneshu" }
-];
-
-const mockRatings = {
-  1: [
-    { id: 1, project_id: 1, user_id: 'user_123', stars: 5, comment: "Great work!", created_at: "2025-03-01T12:00:00Z" },
-    { id: 2, project_id: 1, user_id: 'user_456', stars: 4, comment: "Nice design!", created_at: "2025-03-02T14:30:00Z" }
-  ],
-  2: [
-    { id: 3, project_id: 2, user_id: 'user_789', stars: 5, comment: "Very intuitive UI!", created_at: "2025-03-03T09:15:00Z" }
-  ],
-  3: [
-    { id: 4, project_id: 3, user_id: 'user_123', stars: 5, comment: "I love the menu design!", created_at: "2025-03-02T10:00:00Z" },
-    { id: 5, project_id: 3, user_id: 'user_456', stars: 5, comment: "Great work on the responsive layout", created_at: "2025-03-01T11:20:00Z" },
-    { id: 6, project_id: 3, user_id: 'user_789', stars: 4, comment: "Nice color scheme", created_at: "2025-02-28T16:45:00Z" }
-  ]
-};
-
 export default createStore({
   state: {
     projectRatings: {},

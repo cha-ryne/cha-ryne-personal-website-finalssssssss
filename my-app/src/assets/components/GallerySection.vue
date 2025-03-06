@@ -135,23 +135,24 @@ onBeforeUnmount(() => {
   box-sizing: border-box;
 }
 
-/* UPDATED: Flex layout instead of grid */
+/* REPLACED: Use flexbox with explicit row layout */
 .my-gallery-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
   justify-content: center;
+  gap: 15px;
+  width: 100%;
 }
 
-/* UPDATED: Fixed width for items */
+/* UPDATED: Fixed dimensions for items with flex-basis */
 .my-gallery-item {
-  width: 280px;
+  flex: 0 0 calc(25% - 15px); /* 4 items per row with gap consideration */
+  max-width: calc(25% - 15px);
   height: 200px;
   overflow: hidden;
   cursor: pointer;
   border-radius: 10px;
   position: relative;
-  margin-bottom: 1rem;
 }
 
 .my-gallery-item img {
@@ -218,22 +219,25 @@ onBeforeUnmount(() => {
   color: #ff69b4;
 }
 
-/* Responsive adjustments */
-@media (max-width: 980px) {
-  .my-gallery-grid {
-    justify-content: space-around;
-  }
-  
+/* Responsive adjustments - updated to ensure proper row layout */
+@media (max-width: 1024px) {
   .my-gallery-item {
-    width: calc(50% - 1rem);
-    max-width: 400px;
+    flex: 0 0 calc(33.333% - 15px); /* 3 items per row */
+    max-width: calc(33.333% - 15px);
   }
 }
 
-@media (max-width: 580px) {
+@media (max-width: 768px) {
   .my-gallery-item {
-    width: 100%;
-    max-width: none;
+    flex: 0 0 calc(50% - 15px); /* 2 items per row */
+    max-width: calc(50% - 15px);
+  }
+}
+
+@media (max-width: 480px) {
+  .my-gallery-item {
+    flex: 0 0 calc(100% - 15px); /* 1 item per row */
+    max-width: calc(100% - 15px);
   }
 }
 </style>

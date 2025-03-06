@@ -81,7 +81,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .gallery {
   background-color: #191919;
   border-radius: 12px;

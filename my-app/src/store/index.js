@@ -1,14 +1,8 @@
 // src/store/index.js
 import { createStore } from 'vuex';
 
-// API URL with CORS Proxy
-const API_URL = 'https://charyn.pythonanywhere.com/api';
-const CORS_PROXY = 'https://corsproxy.io/?';
-
-// Function to create proxied URL
-const getProxiedUrl = (url) => {
-  return `${CORS_PROXY}${encodeURIComponent(url)}`;
-};
+// API URL (direct, no proxy)
+const API_URL = 'https://charyn.pythonanywhere.com/api/ratings';
 
 export default createStore({
   state: {
@@ -65,17 +59,12 @@ export default createStore({
     },
     
     async fetchRatings({ commit }) {
-      console.log('Fetching ratings via CORS proxy');
+      console.log('Fetching ratings directly from API');
       commit('SET_LOADING', true);
       commit('SET_ERROR', '');
       
       try {
-        // Use CORS proxy to bypass CORS restrictions
-        const apiUrl = `${API_URL}/ratings`;
-        const proxiedUrl = getProxiedUrl(apiUrl);
-        console.log('Fetching from proxied URL:', proxiedUrl);
-        
-        const response = await fetch(proxiedUrl);
+        const response = await fetch(API_URL);
         console.log('Ratings response status:', response.status);
         
         if (!response.ok) {
@@ -131,12 +120,7 @@ export default createStore({
         
         console.log('Rating data to send:', ratingData);
         
-        // Use CORS proxy for submission
-        const apiUrl = `${API_URL}/ratings`;
-        const proxiedUrl = getProxiedUrl(apiUrl);
-        console.log('Submitting to proxied URL:', proxiedUrl);
-        
-        const response = await fetch(proxiedUrl, {
+        const response = await fetch(API_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -151,7 +135,7 @@ export default createStore({
           throw new Error(`Server error: ${response.status}`);
         }
         
-        // Try to get the new rating from the response
+        // Get the new rating from the response
         const newRating = await response.json();
         console.log('New rating from API:', newRating);
         
@@ -176,7 +160,6 @@ export default createStore({
         commit('SET_LOADING', false);
       }
     },
-    
     openRatingModal({ commit }, { projectId, stars = 0 }) {
       console.log(`Opening rating modal for project ${projectId} with ${stars} stars`);
       commit('SET_SELECTED_PROJECT', parseInt(projectId));

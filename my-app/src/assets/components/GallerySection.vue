@@ -51,7 +51,8 @@ function getImagePath(path) {
   if (path.startsWith('http')) {
     return path;
   }
-  return `/img/${path}`;
+  // Since your images are in public/images, keep the path as is
+  return path;
 }
 
 // Open the gallery at a specific image index
@@ -93,6 +94,7 @@ function handleKeydown(event) {
 // Add keyboard event listener when component mounts
 onMounted(() => {
   window.addEventListener('keydown', handleKeydown);
+  console.log('Gallery image paths:', images.value.map(path => getImagePath(path)));
 });
 
 // Remove keyboard event listener when component unmounts
@@ -120,7 +122,7 @@ onBeforeUnmount(() => {
 }
 
 .gallery-container {
-  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
 }
 

@@ -83,7 +83,7 @@ nav ul li {
 }
 
 nav ul li a {
-  color: white;
+  color: #ff69b4;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s;

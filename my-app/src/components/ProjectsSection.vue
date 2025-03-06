@@ -157,7 +157,7 @@ onMounted(() => {
 }
 
 .projects h2 {
-  color: white;
+  color: #ff69b4;
   margin-bottom: 1rem;
   font-size: 2rem;
 }

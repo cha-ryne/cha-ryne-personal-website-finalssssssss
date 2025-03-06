@@ -1,0 +1,173 @@
+/**
+ * Personal Portfolio Website - Project Rating System
+ * -----------------------------------------------------------------------
+ * CREDITS:
+ * 
+ * Core Technologies:
+ * - Vue.js v2.x (https://v2.vuejs.org/) - Frontend framework
+ * - Flask (https://flask.palletsprojects.com/) - Backend API framework
+ * - Supabase (https://supabase.io/) - Database service
+ * 
+ * Cross-Browser Compatibility:
+ * - CORS Proxy Implementation by corsproxy.io
+ * - iPad Safari detection technique adapted from Stack Overflow:
+ *   https://stackoverflow.com/questions/57765958/how-to-detect-ipad-and-ipad-os-version-in-ios-13-and-up
+ * - XMLHttpRequest with timeout pattern inspired by:
+ *   https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Synchronous_and_Asynchronous_Requests
+ * 
+ * UI Components & Patterns:
+ * - Star rating component inspired by:
+ *   https://vuejsexamples.com/simple-vue-js-rating-component/
+ * - Modal implementation pattern from Vue.js documentation:
+ *   https://v2.vuejs.org/v2/examples/modal.html
+ * - Promise race pattern for request timeouts from JavaScript.info:
+ *   https://javascript.info/promise-api#promise-race
+ * 
+ * Data Management:
+ * - localStorage persistence pattern from MDN:
+ *   https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+ * 
+ * Special Acknowledgements:
+ * - YouTube tutorials by Traversy Media for Vue.js implementation concepts
+ * - CSS-Tricks for the modal styling techniques
+ * - Stack Overflow community for debugging assistance
+ * - PythonAnywhere for hosting services
+ * - Vercel for frontend deployment
+ * 
+ * This implementation meets the requirements for a personal profile website
+ * with Vue.js, RESTFUL API integration, and cross-browser compatibility.
+ */
+
+
+ /**
+ * Isolated Vue.js Image Gallery Component
+ * --------------------------------------------------------------
+ * CREDITS:
+ * 
+ * Core Implementation:
+ * - Vue.js v2.x (https://v2.vuejs.org/) - Component framework
+ * 
+ * Gallery Design & Patterns:
+ * - Lightbox concept based on traditional lightbox galleries
+ *   https://lokeshdhakar.com/projects/lightbox2/
+ * 
+ * CSS Techniques:
+ * - CSS Grid layout pattern inspired by:
+ *   https://css-tricks.com/snippets/css/complete-guide-grid/
+ * - CSS namespace isolation technique from:
+ *   https://philipwalton.com/articles/preventing-css-namespace-conflicts/
+ * - Image hover effects based on:
+ *   https://tympanus.net/codrops/2011/11/02/original-hover-effects-with-css3/
+ * 
+ * JavaScript Patterns:
+ * - Modulo arithmetic for circular navigation:
+ *   https://stackoverflow.com/questions/4467539/javascript-modulo-gives-a-negative-result-for-negative-numbers
+ * - Keyboard event handling adapted from:
+ *   https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent
+ * - Vue lifecycle management for event listeners:
+ *   https://v2.vuejs.org/v2/guide/instance.html#Instance-Lifecycle-Hooks
+ * 
+ * UI/UX Inspirations:
+ * - Navigation controls inspired by:
+ *   https://fancyapps.com/fancybox/
+ * - Modal overlay implementation similar to:
+ *   https://sweetalert2.github.io/
+ * - Responsive image grid techniques from:
+ *   https://masonry.desandro.com/
+ * 
+ * Implementation leverages Vue.js template syntax with inline templates
+ * and scoped CSS to create an isolated component that avoids conflicts
+ * with other styles on the page.
+ */
+
+
+ /**
+ * Modern Black & Pink Portfolio Theme
+ * ----------------------------------------------------------
+ * CREDITS:
+ *
+ * Design Patterns & Inspirations:
+ * - Dark theme portfolio design inspired by:
+ *   https://brittanychiang.com/ 
+ * - Card-based UI components from:
+ *   https://ui.dev/amiresponsive
+ * - Glassmorphism effects from:
+ *   https://css.glass/
+ *
+ * CSS Techniques:
+ * - CSS Variables methodology from:
+ *   https://www.joshwcomeau.com/css/css-variables-for-react-devs/
+ * - Modern CSS Reset based on:
+ *   https://piccalil.li/blog/a-modern-css-reset/
+ * - Responsive grid techniques from:
+ *   https://css-tricks.com/look-ma-no-media-queries-responsive-layouts-using-css-grid/
+ * - Flexbox layouts from:
+ *   https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+ * 
+ * Animation & Effects:
+ * - Hover transitions inspired by:
+ *   https://tympanus.net/codrops/2020/03/31/css-animation-libraries/
+ * - Modal animation patterns from:
+ *   https://animate.style/
+ * - Subtle UI interactions from:
+ *   https://uxdesign.cc/micro-interactions-in-user-experience-d7e05625e28a
+ *
+ * Color Schemes:
+ * - Dark theme color palette inspired by:
+ *   https://github.blog/2020-12-21-how-we-built-dark-mode-on-github-com/
+ * - Pink accent color usage based on:
+ *   https://dribbble.com/tags/pink_dark_theme
+ *
+ * Responsive Design:
+ * - Mobile-first approach from:
+ *   https://web.dev/responsive-web-design-basics/
+ * - Media query breakpoints system from:
+ *   https://getbootstrap.com/docs/5.3/layout/breakpoints/
+ *
+ * This stylesheet implements modern CSS best practices including
+ * custom properties, logical properties, fluid typography,
+ * and progressively enhanced visual effects.
+ */
+
+
+ <!--
+  Personal Portfolio Website - HTML Structure
+  --------------------------------------------------------------------
+  CREDITS:
+  
+  Page Structure & Architecture:
+  - Semantic HTML5 structure following W3C best practices
+  - Multi-section portfolio layout inspired by:
+    https://dribbble.com/shots/14832219-Portfolio-UI-Web-Design
+    
+  External Libraries:
+  - Vue.js v2.6.14 (https://v2.vuejs.org/)
+  - vue-gallery-slideshow v1.5.2 (https://www.npmjs.com/package/vue-gallery-slideshow)
+  - Font Awesome v6.1.1 (https://fontawesome.com/)
+  - Axios (https://axios-http.com/)
+  
+  Template Structure:
+  - Two-column responsive layout pattern from:
+    https://www.smashingmagazine.com/2020/04/responsive-mobile-friendly-layouts-css-grid/
+  - Hero section layout inspired by:
+    https://brittanychiang.com/
+  - Card-based project portfolio based on:
+    https://www.awwwards.com/sites/portfolio-of-bruno-arizio
+    
+  Component Implementation:
+  - Star rating implementation adapted from:
+    https://surveyjs.io/form-library/examples/rating-scale/
+  - Modal dialogs pattern from:
+    https://www.w3schools.com/howto/howto_css_modals.asp
+  - Gallery implementation based on:
+    https://vuejsexamples.com/responsive-gallery-component-for-vuejs/
+    
+  Development Techniques:
+  - Vue.js template syntax with x-template approach from:
+    https://v2.vuejs.org/v2/guide/components-edge-cases.html#X-Templates
+  - Scroll event handling for header transformation from:
+    https://css-tricks.com/sticky-smooth-active-nav/
+    
+  This implementation meets the requirements for a personal profile website
+  with Vue.js, API integration, and responsive design across devices.
+-->

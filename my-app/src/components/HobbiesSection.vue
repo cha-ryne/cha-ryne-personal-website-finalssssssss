@@ -23,7 +23,7 @@
 }
 
 .hobbies h2 {
-  color: white;
+  color: #ff69b4;
   margin-bottom: 2rem;
   font-size: 1.8rem;
   text-align: center;

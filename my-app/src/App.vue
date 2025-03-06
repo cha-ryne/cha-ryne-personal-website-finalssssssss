@@ -20,8 +20,6 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
-import { useStore } from 'vuex';
 import HeaderComponent from '@/components/HeaderComponent.vue';
 import HeroSection from '@/components/HeroSection.vue';
 import EducationSection from '@/components/EducationSection.vue';

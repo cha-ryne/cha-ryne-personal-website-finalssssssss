@@ -27,9 +27,9 @@
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  margin: 80px auto 2rem auto;
-  width: 100%;
-  max-width: 1000px;
+  margin: 2rem auto;
+  width: 90%;
+  max-width: 1200px; /* Adjusted to match other sections */
 }
 
 .hero-content {
@@ -61,7 +61,7 @@
 .hero-text h2 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
-  background: linear-gradient(to right, #ff69b4, #8a2be2);
+  background: linear-gradient(to right, #ff69b4);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -84,7 +84,7 @@
   padding: 0.5rem 1rem;
   border-radius: 30px;
   transition: background-color 0.3s, transform 0.3s;
-  color: white;
+  color: #ff69b4;
   text-decoration: none;
 }
 
@@ -113,7 +113,8 @@
   }
   
   .hero {
-    margin: 70px 20px 2rem 20px;
+    margin: 1.5rem auto;
+    width: 95%;
   }
 }
 </style>

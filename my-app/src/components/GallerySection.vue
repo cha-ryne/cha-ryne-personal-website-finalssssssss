@@ -1,160 +1,129 @@
 <template>
   <section class="gallery" id="gallery">
-    <h2><span class="icon">🖼️</span> Gallery</h2>
+    <h2><i class="fas fa-images"></i> Gallery</h2>
     <div class="gallery-container">
-      <div class="my-isolated-gallery-container">
-        <!-- Image grid with unique class names -->
-        <div class="my-gallery-grid">
-          <div 
-            v-for="(image, index) in images" 
-            :key="index"
-            class="my-gallery-item"
-            @click="openGallery(index)"
-          >
-            <img :src="getImagePath(image)" :alt="'Gallery image ' + (index + 1)" />
-          </div>
+      <!-- Image grid -->
+      <div class="gallery-grid">
+        <div 
+          v-for="(image, index) in images" 
+          :key="index"
+          class="gallery-item"
+          @click="openGallery(index)"
+        >
+          <img :src="image" :alt="'Gallery image ' + (index + 1)" />
         </div>
-        
-        <!-- Custom gallery overlay with unique class -->
-        <div v-if="showGallery" class="my-gallery-overlay">
-          <img :src="getImagePath(images[currentIndex])" class="my-gallery-large-img" />
-          <div class="my-gallery-close" @click="closeGallery">×</div>
-          <div class="my-gallery-prev" @click="prevImage">❮</div>
-          <div class="my-gallery-next" @click="nextImage">❯</div>
-        </div>
+      </div>
+      
+      <!-- Gallery lightbox overlay -->
+      <div v-if="showGallery" class="gallery-overlay">
+        <img :src="images[currentIndex]" class="gallery-large-img" />
+        <div class="gallery-close" @click="closeGallery">×</div>
+        <div class="gallery-prev" @click="prevImage">❮</div>
+        <div class="gallery-next" @click="nextImage">❯</div>
       </div>
     </div>
   </section>
 </template>
 
-<script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
-
-// Gallery image array with paths that work both in development and production
-const images = ref([
-  '/images/gong.jpg',
-  '/images/Sakamoto.jpg',
-  '/images/bp.jpg',
-  '/images/Manga.jpg',
-  '/images/pirates.jpg',
-  'https://preview.redd.it/new-wallpaper-for-my-pc-they-have-no-right-being-this-cool-v0-3l2k9lpytrcc1.jpeg?auto=webp&s=84fbc9925af40466495e023248afa37305b232fd',
-  '/images/Chman.jpg',
-  '/images/fish.jpg'
-]);
-
-// State variables
-const currentIndex = ref(0);
-const showGallery = ref(false);
-
-// Function to get correct image path
-function getImagePath(path) {
-  if (path.startsWith('http')) {
-    return path;
+<script>
+export default {
+  name: 'GallerySection',
+  data() {
+    return {
+      images: [
+        "/images/gong.jpg",
+        '/images/Sakamoto.jpg',
+        '/images/bp.jpg',
+        '/images/Manga.jpg',
+        '/images/pirates.jpg',
+        'https://preview.redd.it/new-wallpaper-for-my-pc-they-have-no-right-being-this-cool-v0-3l2k9lpytrcc1.jpeg?auto=webp&s=84fbc9925af40466495e023248afa37305b232fd',
+        '/images/Chman.jpg',
+        "/images/fish.jpg"
+      ],
+      currentIndex: 0,
+      showGallery: false
+    };
+  },
+  methods: {
+    openGallery(index) {
+      this.currentIndex = index;
+      this.showGallery = true;
+      document.body.style.overflow = 'hidden';
+    },
+    closeGallery() {
+      this.showGallery = false;
+      document.body.style.overflow = '';
+    },
+    prevImage() {
+      this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+    },
+    nextImage() {
+      this.currentIndex = (this.currentIndex + 1) % this.images.length;
+    },
+    handleKeydown(event) {
+      if (!this.showGallery) return;
+      
+      if (event.key === 'ArrowLeft') {
+        this.prevImage();
+      } else if (event.key === 'ArrowRight') {
+        this.nextImage();
+      } else if (event.key === 'Escape') {
+        this.closeGallery();
+      }
+    }
+  },
+  mounted() {
+    window.addEventListener('keydown', this.handleKeydown);
+  },
+  unmounted() {
+    window.removeEventListener('keydown', this.handleKeydown);
   }
-  // Since your images are in public/images, keep the path as is
-  return path;
-}
-
-// Open the gallery at a specific image index
-function openGallery(index) {
-  currentIndex.value = index;
-  showGallery.value = true;
-  document.body.style.overflow = 'hidden'; // Prevent scrolling when gallery is open
-}
-
-// Close the gallery
-function closeGallery() {
-  showGallery.value = false;
-  document.body.style.overflow = ''; // Re-enable scrolling
-}
-
-// Navigate to previous image
-function prevImage() {
-  currentIndex.value = (currentIndex.value - 1 + images.value.length) % images.value.length;
-}
-
-// Navigate to next image
-function nextImage() {
-  currentIndex.value = (currentIndex.value + 1) % images.value.length;
-}
-
-// Handle keyboard navigation
-function handleKeydown(event) {
-  if (!showGallery.value) return;
-  
-  if (event.key === 'ArrowLeft') {
-    prevImage();
-  } else if (event.key === 'ArrowRight') {
-    nextImage();
-  } else if (event.key === 'Escape') {
-    closeGallery();
-  }
-}
-
-// Add keyboard event listener when component mounts
-onMounted(() => {
-  window.addEventListener('keydown', handleKeydown);
-  console.log('Gallery image paths:', images.value.map(path => getImagePath(path)));
-});
-
-// Remove keyboard event listener when component unmounts
-onBeforeUnmount(() => {
-  window.removeEventListener('keydown', handleKeydown);
-});
+};
 </script>
 
 <style scoped>
 .gallery {
-  padding: 4rem 2rem;
-  background-color: #121212;
-  text-align: center;
+  background-color: #191919;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  margin: 2rem auto;
+  width: 90%;
+  max-width: 1200px;
+  padding: 2rem;
+  color: white;
 }
 
 .gallery h2 {
-  color: white;
-  margin-bottom: 3rem;
   font-size: 2rem;
-}
-
-.gallery h2 .icon {
-  color: #ff69b4;
-  margin-right: 0.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  background: linear-gradient(to right, #ff69b4, #8a2be2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .gallery-container {
-  max-width: 1200px;
-  margin: 0 auto;
+  position: relative;
 }
 
-/* Use a unique namespace for all gallery elements */
-.my-isolated-gallery-container {
+/* Grid layout */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
   width: 100%;
 }
 
-.my-isolated-gallery-container * {
-  box-sizing: border-box;
-}
-
-/* UPDATED: Flex layout instead of grid */
-.my-gallery-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-}
-
-/* UPDATED: Fixed width for items */
-.my-gallery-item {
-  width: 280px;
-  height: 200px;
+/* Thumbnails */
+.gallery-item {
   overflow: hidden;
   cursor: pointer;
   border-radius: 10px;
-  position: relative;
-  margin-bottom: 1rem;
+  height: 200px; /* Fixed height */
 }
 
-.my-gallery-item img {
+.gallery-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -162,12 +131,12 @@ onBeforeUnmount(() => {
   border-radius: 10px;
 }
 
-.my-gallery-item:hover img {
+.gallery-item:hover img {
   transform: scale(1.05);
 }
 
 /* Fullscreen overlay */
-.my-gallery-overlay {
+.gallery-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -181,7 +150,7 @@ onBeforeUnmount(() => {
 }
 
 /* Large image */
-.my-gallery-large-img {
+.gallery-large-img {
   max-height: 80vh;
   max-width: 90vw;
   object-fit: contain;
@@ -189,17 +158,18 @@ onBeforeUnmount(() => {
 }
 
 /* Controls */
-.my-gallery-close {
+.gallery-close {
   position: absolute;
   top: 20px;
   right: 20px;
   color: white;
   font-size: 30px;
   cursor: pointer;
+  z-index: 10000;
 }
 
-.my-gallery-prev,
-.my-gallery-next {
+.gallery-prev,
+.gallery-next {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -207,33 +177,31 @@ onBeforeUnmount(() => {
   font-size: 30px;
   cursor: pointer;
   padding: 20px;
+  z-index: 10000;
 }
 
-.my-gallery-prev { left: 20px; }
-.my-gallery-next { right: 20px; }
+.gallery-prev { left: 20px; }
+.gallery-next { right: 20px; }
 
-.my-gallery-close:hover,
-.my-gallery-prev:hover,
-.my-gallery-next:hover {
-  color: #ff69b4;
-}
-
-/* Responsive adjustments */
-@media (max-width: 980px) {
-  .my-gallery-grid {
-    justify-content: space-around;
+@media (max-width: 768px) {
+  .gallery {
+    padding: 1.5rem;
+    width: 95%;
   }
   
-  .my-gallery-item {
-    width: calc(50% - 1rem);
-    max-width: 400px;
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.75rem;
   }
-}
-
-@media (max-width: 580px) {
-  .my-gallery-item {
-    width: 100%;
-    max-width: none;
+  
+  .gallery-item {
+    height: 150px;
+  }
+  
+  .gallery-close,
+  .gallery-prev,
+  .gallery-next {
+    font-size: 24px;
   }
 }
 </style>

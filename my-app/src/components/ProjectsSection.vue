@@ -16,14 +16,16 @@
           <h3>{{ project.title }}</h3>
           <p>{{ project.description }}</p>
           <div class="project-rating" :data-project="project.id">
-            <div class="stars">
-              <span v-for="n in 5" :key="`project${project.id}-star-${n}`" 
-                 :class="['star', n <= getAverageRating(project.id) ? 'filled' : '']"
-                 @click="openRatingModal(project.id, n)">★</span>
+            <div class="rating-wrapper">
+              <div class="stars">
+                <span v-for="n in 5" :key="`project${project.id}-star-${n}`" 
+                   :class="['star', n <= getAverageRating(project.id) ? 'filled' : '']"
+                   @click="openRatingModal(project.id, n)">★</span>
+              </div>
+              <span class="rating-count">
+                ({{ projectRatings[project.id] ? projectRatings[project.id].length : 0 }} ratings)
+              </span>
             </div>
-            <span class="rating-count">
-              ({{ projectRatings[project.id] ? projectRatings[project.id].length : 0 }} ratings)
-            </span>
             <div class="project-comments-container">
               <h4 class="comments-heading">Feedback</h4>
               <div class="project-comments">
@@ -57,6 +59,7 @@
 </template>
 
 <script setup>
+// Script content remains the same
 import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import RatingModal from '../components/modals/RatingModal.vue';
@@ -254,13 +257,24 @@ onMounted(() => {
   margin-top: 1.5rem;
 }
 
+/* New wrapper for rating components */
+.rating-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* Center the stars */
 .stars {
+  display: flex;
+  justify-content: center;
   margin-bottom: 0.5rem;
 }
 
 .star {
   color: #999;
-  margin-right: 0.25rem;
+  margin: 0 0.125rem;
   cursor: pointer;
   font-size: 1.2rem;
 }
@@ -276,6 +290,8 @@ onMounted(() => {
 .rating-count {
   font-size: 0.8rem;
   color: #777;
+  text-align: center;
+  display: block;
 }
 
 .project-comments-container {

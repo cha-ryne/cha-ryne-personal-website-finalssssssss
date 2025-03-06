@@ -1,7 +1,7 @@
 <!-- src/components/ProjectsSection.vue -->
 <template>
   <section class="projects" id="projects">
-    <h2><i class="fas fa-star"></i> My Projects</h2>
+    <h2><span class="icon">⭐</span> My Projects</h2>
     <p>Check out my latest work and share your feedback!</p>
     
     <div class="projects-grid">
@@ -9,7 +9,7 @@
         <div class="project-image" :style="`background-image: url(${project.image})`">
           <div class="project-overlay">
             <a :href="project.link" target="_blank" class="project-link">
-              <i class="fas fa-external-link-alt"></i> View Project
+              <span class="icon link-icon">🔗</span> View Project
             </a>
           </div>
         </div>
@@ -18,9 +18,9 @@
           <p>{{ project.description }}</p>
           <div class="project-rating" :data-project="project.id">
             <div class="stars">
-              <i v-for="n in 5" :key="`project${project.id}-star-${n}`" 
-                 :class="[n <= getAverageRating(project.id) ? 'fas' : 'far', 'fa-star']"
-                 @click="openRatingModal(project.id, n)"></i>
+              <span v-for="n in 5" :key="`project${project.id}-star-${n}`" 
+                 :class="['star', n <= getAverageRating(project.id) ? 'filled' : '']"
+                 @click="openRatingModal(project.id, n)">★</span>
             </div>
             <span class="rating-count">
               ({{ projectRatings[project.id] ? projectRatings[project.id].length : 0 }} ratings)
@@ -34,8 +34,8 @@
                 <div v-else>
                   <div v-for="rating in getTopComments(project.id)" :key="rating.id" class="comment">
                     <div class="comment-stars">
-                      <i v-for="n in 5" :key="`rating-${rating.id}-star-${n}`"
-                         :class="[n <= rating.stars ? 'fas' : 'far', 'fa-star']"></i>
+                      <span v-for="n in 5" :key="`rating-${rating.id}-star-${n}`"
+                         :class="['star', n <= rating.stars ? 'filled' : '']">★</span>
                     </div>
                     <p class="comment-text">{{ rating.comment }}</p>
                     <p class="comment-date">{{ formatDate(rating.created_at) }}</p>
@@ -62,7 +62,13 @@ import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import RatingModal from '@/components/modals/RatingModal.vue';
 import CommentsModal from '@/components/modals/CommentsModal.vue';
-import { formatDate } from '@/utils/formatters';
+
+// Helper function - simpler version of the original
+function formatDate(dateString) {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
 
 const store = useStore();
 
@@ -72,21 +78,21 @@ const projects = ref([
     id: 1,
     title: "Personal Website",
     description: "A responsive personal website.",
-    image: new URL('@/assets/images/proj1.png', import.meta.url).href,
+    image: "/images/proj1.png", // Simplified path
     link: "/"
   },
   {
     id: 2,
     title: "Ramquest",
     description: "A mobile wireframe of Ramquest app.",
-    image: new URL('@/assets/images/proj2.png', import.meta.url).href,
+    image: "/images/proj2.png", // Simplified path
     link: "https://www.figma.com/proto/tQESkzv4TdzWyUJZHTJjIK/RAMQUEST-MOBILE-VERSION"
   },
   {
     id: 3,
     title: "Meneshu",
     description: "A responsive restaurant website.",
-    image: new URL('@/assets/images/proj3.png', import.meta.url).href,
+    image: "/images/proj3.png", // Simplified path
     link: "https://rheaanne.github.io/Meneshu/home/"
   }
 ]);
@@ -139,7 +145,7 @@ function hasComments(projectId) {
   font-size: 2rem;
 }
 
-.projects h2 i {
+.projects h2 .icon {
   color: #ff69b4;
   margin-right: 0.5rem;
 }
@@ -212,6 +218,10 @@ function hasComments(projectId) {
   background: #8a2be2;
 }
 
+.link-icon {
+  margin-right: 5px;
+}
+
 .project-info {
   padding: 1.5rem;
 }
@@ -234,17 +244,18 @@ function hasComments(projectId) {
   margin-bottom: 0.5rem;
 }
 
-.stars i {
+.star {
   color: #999;
   margin-right: 0.25rem;
   cursor: pointer;
+  font-size: 1.2rem;
 }
 
-.stars i.fas {
+.star.filled {
   color: gold;
 }
 
-.stars i:hover {
+.star:hover {
   color: gold;
 }
 
@@ -276,13 +287,13 @@ function hasComments(projectId) {
   margin-bottom: 0.75rem;
 }
 
-.comment-stars i {
+.comment-stars .star {
   font-size: 0.8rem;
   color: #999;
   margin-right: 0.25rem;
 }
 
-.comment-stars i.fas {
+.comment-stars .star.filled {
   color: gold;
 }
 

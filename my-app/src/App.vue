@@ -20,6 +20,7 @@
 </template>
 
 <script setup>
+
 import HeaderComponent from '@/components/HeaderComponent.vue';
 import HeroSection from '@/components/HeroSection.vue';
 import EducationSection from '@/components/EducationSection.vue';

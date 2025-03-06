@@ -1,17 +1,17 @@
 <template>
   <section class="skills" id="skills">
-    <h2><i class="fas fa-laptop-code"></i> IT Experience</h2>
+    <h2><span class="icon">💻</span> IT Experience</h2>
     <div class="skills-container">
       <div class="skill">
-        <i class="fab fa-java"></i>
+        <span class="icon">☕</span>
         <p>Basic Java</p>
       </div>
       <div class="skill">
-        <i class="fab fa-python"></i>
+        <span class="icon">🐍</span>
         <p>Basic Python</p>
       </div>
       <div class="skill">
-        <i class="fas fa-gamepad"></i>
+        <span class="icon">🎮</span>
         <p>Codee Combat</p>
       </div>
     </div>
@@ -35,7 +35,7 @@
   font-size: 2rem;
 }
 
-.skills h2 i {
+.skills h2 .icon {
   color: #ff69b4;
   margin-right: 0.5rem;
 }
@@ -53,10 +53,11 @@
   text-align: center;
 }
 
-.skill i {
+.skill .icon {
   font-size: 3rem;
   color: #ff69b4;
   margin-bottom: 1rem;
+  display: block;
 }
 
 .skill p {

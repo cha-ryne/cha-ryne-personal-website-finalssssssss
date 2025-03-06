@@ -1,21 +1,21 @@
 <template>
   <section class="resources" id="resources">
-    <h2><i class="fas fa-link"></i> Useful Links</h2>
+    <h2><span class="icon">🔗</span> Useful Links</h2>
     <div class="resources-grid">
       <a href="https://blog.pixelfreestudio.com/using-css-grid-and-flexbox-together-best-practices/" class="resource-link">
-        <i class="fas fa-th"></i>
+        <span class="icon">📊</span>
         <span>Flexbox and CSS grid</span>
       </a>
       <a href="https://www.w3schools.com/tags/tag_button.asp" class="resource-link">
-        <i class="fas fa-square"></i>
+        <span class="icon">🔘</span>
         <span>Buttons</span>
       </a>
       <a href="https://vuejsexamples.com/responsive-gallery-component-for-vuejs/" class="resource-link">
-        <i class="fab fa-vuejs"></i>
+        <span class="icon">💚</span>
         <span>Vue Gallery</span>
       </a>
       <a href="https://surveyjs.io/form-library/examples/rating-scale/documentation" class="resource-link">
-        <i class="fas fa-poll"></i>
+        <span class="icon">⭐</span>
         <span>Vue Rating</span>
       </a>
     </div>
@@ -39,7 +39,7 @@
   font-size: 2rem;
 }
 
-.resources h2 i {
+.resources h2 .icon {
   color: #ff69b4;
   margin-right: 0.5rem;
 }
@@ -69,13 +69,13 @@
   background-color: #ff69b4;
 }
 
-.resource-link i {
+.resource-link .icon {
   font-size: 1.5rem;
   margin-right: 1rem;
   color: #ff69b4;
 }
 
-.resource-link:hover i {
+.resource-link:hover .icon {
   color: white;
 }
 

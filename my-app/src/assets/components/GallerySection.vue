@@ -135,34 +135,23 @@ onBeforeUnmount(() => {
   box-sizing: border-box;
 }
 
-/* FIXED: Improved flex layout with proper spacing */
+/* UPDATED: Flex layout instead of grid */
 .my-gallery-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 1rem;
   justify-content: center;
-  width: 100%;
-  padding: 10px;
 }
 
-/* FIXED: Better sizing with aspect ratio for items */
+/* UPDATED: Fixed width for items */
 .my-gallery-item {
-  flex: 0 0 calc(25% - 15px);
-  max-width: calc(25% - 15px);
-  aspect-ratio: 1 / 0.75; /* Maintain consistent proportions */
-  min-height: 180px;
-  margin-bottom: 5px;
+  width: 280px;
+  height: 200px;
   overflow: hidden;
   cursor: pointer;
   border-radius: 10px;
   position: relative;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.my-gallery-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  margin-bottom: 1rem;
 }
 
 .my-gallery-item img {
@@ -170,7 +159,7 @@ onBeforeUnmount(() => {
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
 .my-gallery-item:hover img {
@@ -197,7 +186,6 @@ onBeforeUnmount(() => {
   max-width: 90vw;
   object-fit: contain;
   border-radius: 10px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
 }
 
 /* Controls */
@@ -208,14 +196,6 @@ onBeforeUnmount(() => {
   color: white;
   font-size: 30px;
   cursor: pointer;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.5);
-  transition: background-color 0.2s;
 }
 
 .my-gallery-prev,
@@ -226,14 +206,7 @@ onBeforeUnmount(() => {
   color: white;
   font-size: 30px;
   cursor: pointer;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.5);
-  transition: background-color 0.2s;
+  padding: 20px;
 }
 
 .my-gallery-prev { left: 20px; }
@@ -243,38 +216,24 @@ onBeforeUnmount(() => {
 .my-gallery-prev:hover,
 .my-gallery-next:hover {
   color: #ff69b4;
-  background-color: rgba(0, 0, 0, 0.8);
 }
 
-/* Responsive adjustments - improved for better display */
-@media (max-width: 1100px) {
-  .my-gallery-item {
-    flex: 0 0 calc(33.333% - 14px);
-    max-width: calc(33.333% - 14px);
-  }
-}
-
-@media (max-width: 800px) {
-  .my-gallery-item {
-    flex: 0 0 calc(50% - 10px);
-    max-width: calc(50% - 10px);
+/* Responsive adjustments */
+@media (max-width: 980px) {
+  .my-gallery-grid {
+    justify-content: space-around;
   }
   
-  .my-gallery-grid {
-    gap: 15px;
+  .my-gallery-item {
+    width: calc(50% - 1rem);
+    max-width: 400px;
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 580px) {
   .my-gallery-item {
-    flex: 0 0 100%;
-    max-width: 100%;
-    aspect-ratio: 16 / 9;
-  }
-  
-  .my-gallery-grid {
-    gap: 15px;
-    padding: 0;
+    width: 100%;
+    max-width: none;
   }
 }
 </style>

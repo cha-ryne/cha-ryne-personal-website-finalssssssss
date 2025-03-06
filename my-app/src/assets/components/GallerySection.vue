@@ -32,14 +32,14 @@ import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 // Gallery image array with paths that work both in development and production
 const images = ref([
-  'gong.jpg',
-  'Sakamoto.jpg',
-  'bp.jpg',
-  'Manga.jpg',
-  'pirates.jpg',
+  '/images/gong.jpg',
+  '/images/Sakamoto.jpg',
+  '/images/bp.jpg',
+  '/images/Manga.jpg',
+  '/images/pirates.jpg',
   'https://preview.redd.it/new-wallpaper-for-my-pc-they-have-no-right-being-this-cool-v0-3l2k9lpytrcc1.jpeg?auto=webp&s=84fbc9925af40466495e023248afa37305b232fd',
-  'Chman.jpg',
-  'fish.jpg'
+  '/images/Chman.jpg',
+  '/images/fish.jpg'
 ]);
 
 // State variables

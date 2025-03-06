@@ -85,21 +85,21 @@ const projects = ref([
     id: 1,
     title: "Personal Website",
     description: "A responsive personal website.",
-    image: "proj1.png", 
+    image: "/images/proj1.png", 
     link: "/"
   },
   {
     id: 2,
     title: "Ramquest",
     description: "A mobile wireframe of Ramquest app.",
-    image: "proj2.png", 
+    image: "/images/proj2.png", 
     link: "https://www.figma.com/proto/tQESkzv4TdzWyUJZHTJjIK/RAMQUEST-MOBILE-VERSION"
   },
   {
     id: 3,
     title: "Meneshu",
     description: "A responsive restaurant website.",
-    image: "proj3.png", 
+    image: "/images/proj3.png", 
     link: "https://rheaanne.github.io/Meneshu/home/"
   }
 ]);
